@@ -1,0 +1,44 @@
+var _user$project$SeatSaver$seatItem = function (seat) {
+	return A2(
+		_elm_lang$html$Html$li,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('seat available')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text(
+				_elm_lang$core$Basics$toString(seat.seatNo))
+			]));
+};
+var _user$project$SeatSaver$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$ul,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html_Attributes$class('seats')
+			]),
+		A2(_elm_lang$core$List$map, _user$project$SeatSaver$seatItem, model));
+};
+var _user$project$SeatSaver$init = _elm_lang$core$Native_List.fromArray(
+	[
+		{seatNo: 1, occupied: false},
+		{seatNo: 2, occupied: false},
+		{seatNo: 3, occupied: false},
+		{seatNo: 4, occupied: false},
+		{seatNo: 5, occupied: false},
+		{seatNo: 6, occupied: false},
+		{seatNo: 7, occupied: false},
+		{seatNo: 8, occupied: false},
+		{seatNo: 9, occupied: false},
+		{seatNo: 10, occupied: false},
+		{seatNo: 11, occupied: false},
+		{seatNo: 12, occupied: false}
+	]);
+var _user$project$SeatSaver$main = {
+	main: _user$project$SeatSaver$view(_user$project$SeatSaver$init)
+};
+var _user$project$SeatSaver$Seat = F2(
+	function (a, b) {
+		return {seatNo: a, occupied: b};
+	});
