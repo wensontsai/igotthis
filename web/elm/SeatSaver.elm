@@ -1,23 +1,32 @@
 module SeatSaver exposing (..)
 
+
 import Html exposing (..)
 import Html.Attributes exposing (class)
+import Html.App as Html
+import Html.Events exposing (onClick)
 
-main : Html String
 
+main : Program Never
 main =
-  --Html.text "Hello from Elmm streerrtt"
-  view init
+  Html.beginnerProgram
+    { model = init
+    , update = update
+    , view = view
+    }
 
 
 -- MODEL
-type alias Seat = {
-  seatNo : Int,
-  occupied : Bool
-}
 
-type alias Model = 
+type alias Seat =
+  { seatNo : Int
+  , occupied : Bool
+  }
+
+
+type alias Model =
   List Seat
+
 
 init : Model
 init =
@@ -36,14 +45,39 @@ init =
   ]
 
 
--- VIEW
---view = 
-  --Html.text "yoooo i'm like tha view now."
+-- UPDATE
 
-view : Model -> Html String
-view model = 
+type Msg = Toggle Seat
+
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Toggle seatToToggle ->
+      let
+        updateSeat seatFromModel =
+          if seatFromModel.seatNo == seatToToggle.seatNo then
+            { seatFromModel | occupied = not seatFromModel.occupied }
+          else seatFromModel
+      in
+        List.map updateSeat model
+
+
+-- VIEW
+
+view : Model -> Html Msg
+view model =
   ul [ class "seats" ] (List.map seatItem model)
 
-seatItem : Seat -> Html String
-seatItem seat = 
-  li [ class "seat available" ] [ text (toString seat.seatNo) ]
+
+seatItem : Seat -> Html Msg
+seatItem seat =
+  let
+    occupiedClass =
+      if seat.occupied then "occupied" else "available"
+  in
+    li
+      [ class ("seat " ++ occupiedClass)
+      , onClick (Toggle seat)
+      ]
+      [ text (toString seat.seatNo) ]
